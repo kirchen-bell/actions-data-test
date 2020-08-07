@@ -6,17 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - id: data
         run: |
-          data=${{ secrets.DATA }}
-          ret=$(echo $data | jq ".failure")
-          echo "::set-output name=parsed::${ret}"
+          test=$(cat static.json | jq '.failure')
+          echo "::set-output name=parsed::${test}"
       - run: echo "${{ steps.data.outputs.parsed }}"
-      - id: data-two
-        if: always()
-        run: |
-          echo "::set-output name=parsed::${{ secrets.DATA }}"
-      - if: always()
-        run: echo "${{ fromJson(steps.data-two.outputs.parsed).success }}"
-      
