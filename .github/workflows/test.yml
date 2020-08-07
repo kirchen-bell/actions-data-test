@@ -5,9 +5,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      DATA: ${{ fromJson(secrets.DATA) }}
     steps:
       - uses: actions/checkout@v2
-      - run: echo ${{ env.DATA.key1 }}
+      - run: echo "${{ toJson(fromJson(secrets.DATA)) }}"
       
