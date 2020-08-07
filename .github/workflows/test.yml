@@ -9,6 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - id: data
         run: |
-          test=$(cat static.json | jq '.failure')
+          test=$(cat static.json | jq -r '.failure')
           echo "::set-output name=parsed::${test}"
-      - run: echo "${{ steps.data.outputs.parsed }}"
+      - run: echo ${{ steps.data.outputs.parsed }}
