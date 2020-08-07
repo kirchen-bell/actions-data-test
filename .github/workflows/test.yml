@@ -9,6 +9,14 @@ jobs:
       # - uses: actions/checkout@v2
       - id: data
         run: |
-          echo "::set-output name=parsed::$(echo ${{ secrets.DATA }} | jq '.failure')"
+          data=${{ secrets.DATA }}
+          ret=$(echo $data | jq ".failure")
+          echo "::set-output name=parsed::${ret}"
       - run: echo "${{ steps.data.outputs.parsed }}"
+      - id: data-two
+        if: always()
+        run: |
+          echo "::set-output name=parsed::${{ secrets.DATA }}"
+      - if: always()
+        run: echo "${{ fromJson(steps.data-two.outputs.parsed).success }}"
       
