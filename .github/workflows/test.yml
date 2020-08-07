@@ -6,9 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       - id: data
         run: |
-          echo "::set-output name=parsed::$(cat ${{ secrets.DATA }} | jq '.failure')"
+          echo "::set-output name=parsed::$(echo ${{ secrets.DATA }} | jq '.failure')"
       - run: echo "${{ steps.data.outputs.parsed }}"
       
