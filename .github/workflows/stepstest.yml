@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.feed.outputs.changed }}
-      latest: ${{ fromJson(steps.feed.outputs.items)[0] }}
+      latest: ${{ fromJson(steps.feed.outputs.items) }}
     steps:
       - uses: actions/checkout@v2
       - uses: sarisia/actions-readme-feed@v1
