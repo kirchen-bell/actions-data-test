@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.feed.outputs.changed }}
-      latest: ${{ fromJson(steps.feed.outputs.items) }}
+      items: ${{ steps.feed.outputs.items }}
     steps:
       - uses: actions/checkout@v2
       - uses: sarisia/actions-readme-feed@v1
@@ -36,9 +36,10 @@ jobs:
     needs: readme
     # if: needs.readme.outputs.changed == true
     steps:
-      - run: echo ${{ needs.readme.outputs.latest.title }}
-      - run: echo ${{ needs.readme.outputs.latest.link }}
-      - run: echo ${{ needs.readme.outputs.latest }}
+      - run: echo ${{ fromJson(needs.readme.outputs.items)[0] }}
+      - run: echo ${{ fromJson(needs.readme.outputs.items)[0].title }}
+      - run: echo ${{ fromJson(needs.readme.outputs.items)[0].link }}
+      
       # - uses: ethomson/send-tweet-action@v1
       #   with:
       #     status: |
